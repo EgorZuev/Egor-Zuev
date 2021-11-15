@@ -16,6 +16,7 @@ import User from "./User.model";
     timestamps: true,
 })
 class Message extends Model {
+    @AllowNull(false)
     @Column(DataType.STRING)
     info: string;
 

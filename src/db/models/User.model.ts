@@ -17,7 +17,7 @@ import Hobby from "./Hobby.model";
     timestamps: true,
 })
 class User extends Model {
-    @Default("Нулевой")
+    @Default("Аноним")
     @Column(DataType.STRING)
     fullName: string;
 
