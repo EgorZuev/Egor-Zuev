@@ -1,22 +1,19 @@
 import { IsDefined, IsEmail, Length } from "class-validator";
 
 export class IUserDTO{
-    @Length(6, 127, {})
-    fullName: string;
+    @Length(4, 32, {})
+    nickName: string;
 
-    @IsEmail()
-    email: string;
-
-    @Length(6, 20, {})
+    @Length(6, 32, {})
     password: string;
 }
 
-export class IMessageDTO{
-    @IsEmail()
-    email: string;
+export class INewsDTO{
+    @Length(3, 32, {})
+    title: string;
 
     @Length(1,1023,{})
-    message: string;
+    content: string;
 }
 
 export class ICreateUserDTO extends IUserDTO {}

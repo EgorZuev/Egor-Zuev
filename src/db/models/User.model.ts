@@ -9,33 +9,26 @@ import {
     IsEmail,
     HasMany,
 } from "sequelize-typescript";
-import Message from "./Message.model";
-import Hobby from "./Hobby.model";
 
 @Table({
     paranoid: true,
     timestamps: true,
 })
 class User extends Model {
-    @Default("Аноним")
     @Column(DataType.STRING)
-    fullName: string;
-
-    @AllowNull(false)
-    @IsEmail
-    @Unique
-    @Column(DataType.STRING)
-    email: string;
+    nickName: string;
 
     @AllowNull(false)
     @Column(DataType.STRING)
     password: string;
 
-    @HasMany(() => Message, { foreignKey: 'userId', onDelete: 'RESTRICT' })
-    message: Message[];
+    @Default(0)
+    @Column(DataType.NUMBER)
+    score: number;
 
-    @HasMany(() => Hobby, { foreignKey: 'userId', onDelete: 'RESTRICT' })
-    hobby: Hobby[];
+    @Default(false)
+    @Column(DataType.BOOLEAN)
+    isAdmin: boolean;
     }
 
 export default User;

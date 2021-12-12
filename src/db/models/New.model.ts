@@ -9,23 +9,19 @@ import {
   ForeignKey,
   BelongsTo,
 } from "sequelize-typescript";
-import User from "./User.model";
 
 @Table({
     paranoid: true,
     timestamps: true,
 })
-class Hobby extends Model {
-    @Column(DataType.STRING)
-    info: string;
-
-    @ForeignKey(() => User)
+class New extends Model {
     @AllowNull(false)
-    @Column(DataType.INTEGER)
-    userId: number;
+    @Column(DataType.STRING)
+    title: string;
 
-    @BelongsTo(() => User, 'userId')
-    user: User;
+    @AllowNull(false)
+    @Column(DataType.STRING)
+    content: string;
 }
 
-export default Hobby;
+export default New;
