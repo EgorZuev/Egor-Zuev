@@ -7,6 +7,7 @@ const seedUsers = {
         {
             nickName: "Первый",
             password: "123",
+            score: 0,
             isAdmin: true,
             createdAt: new Date(),
             updatedAt: new Date(),
@@ -14,6 +15,7 @@ const seedUsers = {
         {
             nickName: "Второй",
             password: "123",
+            score: 5,
             isAdmin: true,
             createdAt: new Date(),
             updatedAt: new Date(),
@@ -21,6 +23,7 @@ const seedUsers = {
         {
             nickName: "Третий",
             password: "123",
+            score: 2,
             isAdmin: true,
             createdAt: new Date(),
             updatedAt: new Date(),
@@ -28,6 +31,7 @@ const seedUsers = {
         {
             nickName: "Четвёртый",
             password: "123",
+            score: 1,
             isAdmin: true,
             createdAt: new Date(),
             updatedAt: new Date(),
@@ -35,6 +39,7 @@ const seedUsers = {
         {
             nickName: "Пятый",
             password: "123",
+            score: 4,
             isAdmin: true,
             createdAt: new Date(),
             updatedAt: new Date(),
