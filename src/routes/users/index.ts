@@ -1,7 +1,7 @@
 import checkAuth from "@/middlewares/checkAuth";
 import { Context, DefaultState } from "koa";
 import Router from "koa-router";
-import { create, list, login, newsUpdate, update } from "@/routes/users/users.controller";
+import { create, list, login, newsUpdate, scoreUpdate, update } from "@/routes/users/users.controller";
 
 const router = new Router<DefaultState, Context>();
 
@@ -16,5 +16,7 @@ router.post("/login", checkAuth, login);
 router.post("/users/update", checkAuth, update);
 
 router.post("/news/update", checkAuth, newsUpdate);
+
+router.post("/addcoin", checkAuth, scoreUpdate);
 
 export default router;

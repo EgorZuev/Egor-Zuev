@@ -1,5 +1,5 @@
 import User from "@/db/models/User.model";
-import { IUserDTO, IUserLoginDTO, IUserUpdateDTO, INewUpdateDTO } from "./dto";
+import { IUserDTO, IUserLoginDTO, IUserUpdateDTO, INewUpdateDTO, ICoinAddDTO } from "./dto";
 import { Op } from "sequelize";
 import moment from "moment"
 import New from "@/db/models/New.model";
@@ -100,6 +100,26 @@ export class UsersService {
       success: true,
       message: "успешное редактирование новости",
       news: foundNew,
+    };
+  }
+
+  async scoreUpdate(body: ICoinAddDTO) {
+    const foundUser = await User.findOne({
+      where: { id: body.id },
+    });
+
+    if (!foundUser) {
+      return { success: false, message: "пользователь не найден" };
+    }
+
+      foundUser.score++;
+
+    await foundUser.save();
+
+    return {
+      success: true,
+      message: "успешное редактирование новости",
+      news: foundUser,
     };
   }
 }

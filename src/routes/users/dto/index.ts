@@ -48,4 +48,8 @@ export class INewUpdateDTO {
     content: string;
 }
 
+export class ICoinAddDTO {
+    id: number;
+}
+
 export class ICreateUserDTO extends IUserDTO {}
