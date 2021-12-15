@@ -1,4 +1,4 @@
-import { IsDefined, IsEmail, Length } from "class-validator";
+import { isDefined, IsDefined, IsEmail, IsOptional, Length } from "class-validator";
 
 export class IUserDTO{
     @Length(4, 32, {})
@@ -13,6 +13,38 @@ export class INewsDTO{
     title: string;
 
     @Length(1,1023,{})
+    content: string;
+}
+
+export class IUserLoginDTO {
+    @Length(4, 32, {})
+    nickName: string;
+  
+    @Length(6, 32, {})
+    password!: string;
+}
+
+export class IUserUpdateDTO {
+    id: number;
+
+    @IsOptional()
+    @Length(4, 32, {})
+    nickName: string;
+  
+    @IsOptional()
+    @Length(6, 32, {})
+    password: string;
+}
+
+export class INewUpdateDTO {
+    id: number;
+
+    @IsOptional()
+    @Length(3, 32, {})
+    title: string;
+  
+    @IsOptional()
+    @Length(1, 1023, {})
     content: string;
 }
 

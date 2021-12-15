@@ -1,5 +1,5 @@
 import User from "@/db/models/User.model";
-import { IUserDTO } from "./dto";
+import { IUserDTO, IUserLoginDTO, IUserUpdateDTO, INewUpdateDTO } from "./dto";
 import { Op } from "sequelize";
 import moment from "moment"
 import New from "@/db/models/New.model";
@@ -27,8 +27,80 @@ export class UsersService {
     return {
       success: true,
       message: "Успешная регистрация",
-      data: result
+      user: result
     }
+  }
+
+  async login(body: IUserLoginDTO) {
+    const foundUser = await User.findOne({
+      where: { nickName: body.nickName },
+    });
+
+    if (!foundUser) {
+      return { success: false, message: "login не найден" };
+    }
+
+    if (body.password != foundUser.password) {
+      return { success: false, message: "неверный пароль" };
+    }
+
+    return {
+      success: true,
+      message: "успешная аутентификация",
+      user: foundUser
+    };
+  }
+
+  async update(body: IUserUpdateDTO) {
+    const foundUser = await User.findOne({
+      where: { id: body.id },
+    });
+
+    if (!foundUser) {
+      return { success: false, message: "пользователь не найден" };
+    }
+
+    if (body.password) {
+      foundUser.password = body.password;
+    }
+
+    if (body.nickName) {
+      foundUser.nickName = body.nickName;
+    }
+
+    await foundUser.save();
+
+    return {
+      success: true,
+      message: "успешное редактирование профиля",
+      user: foundUser,
+    };
+  }
+
+  async newsUpdate(body: INewUpdateDTO) {
+    const foundNew = await New.findOne({
+      where: { id: body.id },
+    });
+
+    if (!foundNew) {
+      return { success: false, message: "новость не найдена" };
+    }
+
+    if (body.title) {
+      foundNew.title = body.title;
+    }
+
+    if (body.content) {
+      foundNew.content = body.content;
+    }
+
+    await foundNew.save();
+
+    return {
+      success: true,
+      message: "успешное редактирование новости",
+      news: foundNew,
+    };
   }
 }
 export const usersFactory = () => new UsersService();

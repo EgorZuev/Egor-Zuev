@@ -7,5 +7,5 @@ export interface IKoaContext extends Context {
 
 export interface IUserContext {
   id: number;
-  email: string;
+  nickName: string;
 }
