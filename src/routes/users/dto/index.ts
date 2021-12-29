@@ -9,6 +9,8 @@ export class IUserDTO{
 }
 
 export class INewsDTO{
+    id: number;
+
     @Length(3, 32, {})
     title: string;
 

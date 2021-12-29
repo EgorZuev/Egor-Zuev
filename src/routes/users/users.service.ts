@@ -1,5 +1,5 @@
 import User from "@/db/models/User.model";
-import { IUserDTO, IUserLoginDTO, IUserUpdateDTO, INewUpdateDTO, ICoinAddDTO } from "./dto";
+import { IUserDTO, IUserLoginDTO, IUserUpdateDTO, INewUpdateDTO, ICoinAddDTO, INewsDTO } from "./dto";
 import { Op } from "sequelize";
 import moment from "moment"
 import New from "@/db/models/New.model";
@@ -9,6 +9,22 @@ export class UsersService {
     const Users = await User.findAll();
     const News = await New.findAll();
     return { Users, News };
+  }
+
+  async getTop() {
+    const UnUsers = await User.findAll();
+    const Users = UnUsers.sort((n1,n2) => {
+      if (n1.score > n2.score) {
+          return -1;
+      }
+  
+      if (n1.score < n2.score) {
+          return 1;
+      }
+  
+      return 0;
+  });
+    return { Users };
   }
 
   async register(user: IUserDTO) {
@@ -27,6 +43,21 @@ export class UsersService {
     return {
       success: true,
       message: "Успешная регистрация",
+      user: result
+    }
+  }
+
+  async createNews (body: INewsDTO) {
+    const result = new New();
+
+    result.title = body.title
+    result.content = body.content
+
+    await result.save();
+
+    return {
+      success: true,
+      message: "Новость добавлена",
       user: result
     }
   }

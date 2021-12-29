@@ -2,10 +2,15 @@ import { IKoaContext } from "@/interfaces";
 import { usersFactory } from "@/routes/users/users.service";
 import { ServerValidationError } from "@/utils/errors";
 import { transformAndValidate } from "class-transformer-validator";
-import { IUserDTO, IUserLoginDTO, IUserUpdateDTO, INewUpdateDTO, ICoinAddDTO } from "./dto";
+import { IUserDTO, IUserLoginDTO, IUserUpdateDTO, INewUpdateDTO, ICoinAddDTO, INewsDTO } from "./dto";
 
 export const list = async (ctx: IKoaContext) => {
   const usersList = await usersFactory().getList();
+  ctx.body = { ...usersList };
+};
+
+export const getTop = async (ctx: IKoaContext) => {
+  const usersList = await usersFactory().getTop();
   ctx.body = { ...usersList };
 };
 
@@ -20,6 +25,20 @@ export const create = async (ctx: IKoaContext) => {
   );
 
   const result = await usersFactory().register(body);
+  ctx.body = result;
+};
+
+export const createNews = async (ctx: IKoaContext) => {
+  const body: INewsDTO = ctx.request.body;
+
+  await transformAndValidate(INewsDTO, body).catch(
+    (err: ServerValidationError)=>
+    {
+      throw new ServerValidationError(err.errorCode, err.message)
+    }
+  );
+
+  const result = await usersFactory().createNews(body);
   ctx.body = result;
 };
 
